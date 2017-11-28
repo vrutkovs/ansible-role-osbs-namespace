@@ -1,5 +1,5 @@
 apiVersion: batch/v2alpha1
-kind: CronJob
+kind: {{ 'ScheduledJob' if osbs_openshift_version == '3.4' else 'CronJob' }}
 metadata:
   name: build-pruner
 spec:
