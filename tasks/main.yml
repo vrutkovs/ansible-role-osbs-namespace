@@ -32,24 +32,6 @@
   tags:
   - oc
 
-# Setup policy binding
-- name: query policybinding
-  command: oc get policybinding {{ osbs_namespace }}:default --namespace {{ osbs_namespace }}
-  environment: "{{ osbs_environment }}"
-  register: policybinding_query
-  failed_when: policybinding_query.rc != 0 and ('not found' not in policybinding_query.stderr)
-  changed_when: false
-  when: osbs_is_admin
-  tags:
-  - oc
-
-- name: create a policybinding
-  command: oc create policybinding {{ osbs_namespace }} --namespace {{ osbs_namespace }}
-  environment: "{{ osbs_environment }}"
-  when: "osbs_is_admin and 'not found' in policybinding_query.stderr"
-  tags:
-  - oc
-
 # Setup role
 - name: copy role
   template:
